@@ -27,7 +27,7 @@ namespace Nop.Web
         }
 
         #endregion
-        //shahrukh
+       
         /// <summary>
         /// Add services to the application and configure service provider
         /// </summary>
