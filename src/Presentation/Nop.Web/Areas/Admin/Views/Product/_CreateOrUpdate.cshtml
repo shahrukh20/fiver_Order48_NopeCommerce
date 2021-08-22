@@ -61,14 +61,14 @@
             <div class="row">
                 <div class="col-md-12 clearfix">
                     <div class="float-left">
-                        @await Component.InvokeAsync("SettingMode", new { modeName = "product-advanced-mode" })
+                        @*@await Component.InvokeAsync("SettingMode", new { modeName = "product-advanced-mode" })*@
                     </div>
                     @if (!Model.IsLoggedInAsVendor)
                     {
-                        <button type="button" class="btn btn-info float-left mx-2" id="product-editor-settings" data-toggle="modal" data-target="#productsettings-window">
+                        @*<button type="button" class="btn btn-info float-left mx-2" id="product-editor-settings" data-toggle="modal" data-target="#productsettings-window">
                             <i class="fas fa-cog"></i>
                             @T("Admin.Configuration.Settings.ProductEditor.Button")
-                        </button>
+                        </button>*@
                     }
                 </div>
             </div>

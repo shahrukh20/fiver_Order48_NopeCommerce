@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -18,6 +19,7 @@ using Nop.Services.Customers;
 using Nop.Services.Directory;
 using Nop.Services.Localization;
 using Nop.Services.Logging;
+using Nop.Services.Messages;
 using Nop.Services.Orders;
 using Nop.Services.Payments;
 using Nop.Services.Shipping;
@@ -241,8 +243,8 @@ namespace Nop.Web.Controllers
             var checkoutAttributesXml = await _genericAttributeService.GetAttributeAsync<string>(await _workContext.GetCurrentCustomerAsync(),
                 NopCustomerDefaults.CheckoutAttributes, (await _storeContext.GetCurrentStoreAsync()).Id);
             var scWarnings = await _shoppingCartService.GetShoppingCartWarningsAsync(cart, checkoutAttributesXml, true);
-            if (scWarnings.Any())
-                return RedirectToRoute("ShoppingCart");
+            //if (scWarnings.Any())
+            //    return RedirectToRoute("ShoppingCart");
             //validation (each shopping cart item)
             foreach (var sci in cart)
             {
@@ -1668,6 +1670,7 @@ namespace Nop.Web.Controllers
         /// <returns>A task that represents the asynchronous operation</returns>
         public virtual async Task<IActionResult> OpcSavePaymentMethod(string paymentmethod, CheckoutPaymentMethodModel model)
         {
+
             try
             {
                 //validation
@@ -1851,6 +1854,8 @@ namespace Nop.Web.Controllers
                 var placeOrderResult = await _orderProcessingService.PlaceOrderAsync(processPaymentRequest);
                 if (placeOrderResult.Success)
                 {
+                 
+
                     HttpContext.Session.Set<ProcessPaymentRequest>("OrderPaymentInfo", null);
                     var postProcessPaymentRequest = new PostProcessPaymentRequest
                     {
@@ -1859,6 +1864,24 @@ namespace Nop.Web.Controllers
 
                     var paymentMethod = await _paymentPluginManager
                         .LoadPluginBySystemNameAsync(placeOrderResult.PlacedOrder.PaymentMethodSystemName, await _workContext.GetCurrentCustomerAsync(), (await _storeContext.GetCurrentStoreAsync()).Id);
+
+                    var customerdata = await _customerService.GetCustomerByIdAsync(processPaymentRequest.CustomerId);
+                    var address = await _addressService.GetAddressByIdAsync(customerdata.BillingAddressId.Value);
+                    var pyment = processPaymentRequest;
+                    //MailMessage mail = new MailMessage();
+                    //SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
+
+                    //mail.From = new MailAddress("shahrukhkhan1602@gmail.com");
+                    //mail.To.Add("aukashakhan30@gmail.com");
+                    //mail.Subject = "Order Successfully Generated with Order#" + JsonConvert.SerializeObject(placeOrderResult.PlacedOrder);
+                    //mail.Body = "This is for testing SMTP mail from GMAIL";
+
+                    //SmtpServer.Port = 587;
+                    //SmtpServer.Credentials = new System.Net.NetworkCredential("shahrukhkhan1602@gmail.com", "1602");
+                    //SmtpServer.EnableSsl = true;
+
+                    //SmtpServer.Send(mail);
+
                     if (paymentMethod == null)
                         //payment method could be null if order total is 0
                         //success

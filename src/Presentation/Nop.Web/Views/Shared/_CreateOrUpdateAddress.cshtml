@@ -132,13 +132,13 @@
     @if (Model.FaxEnabled)
     {
         <div class="inputs">
-            <label asp-for="FaxNumber" asp-postfix=":"></label>
+            @*<label asp-for="FaxNumber" asp-postfix=":"></label>
             <input asp-for="FaxNumber" />
             @if (Model.FaxRequired)
             {
                 <nop-required />
             }
-            <span asp-validation-for="FaxNumber"></span>
+            <span asp-validation-for="FaxNumber"></span>*@
         </div>
     }
     @if (Model.CustomAddressAttributes.Count > 0)

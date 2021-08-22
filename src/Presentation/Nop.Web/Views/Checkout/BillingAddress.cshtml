@@ -72,13 +72,7 @@
                                                     <span>@item.PhoneNumber</span>
                                                 </li>
                                             }
-                                            @if (item.FaxEnabled)
-                                            {
-                                                <li class="fax">
-                                                    <label>@T("Address.Fields.FaxNumber"):</label>
-                                                    <span>@item.FaxNumber</span>
-                                                </li>
-                                            }
+                                           
                                             @if (item.CompanyEnabled && !string.IsNullOrEmpty(item.Company))
                                             {
                                                 <li class="company">

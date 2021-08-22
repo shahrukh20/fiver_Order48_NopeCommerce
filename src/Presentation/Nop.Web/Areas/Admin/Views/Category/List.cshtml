@@ -22,15 +22,15 @@
             @T("Admin.Common.AddNew")
         </a>
         <div class="btn-group">
-            <button type="button" class="btn btn-success">
+            @*<button type="button" class="btn btn-success">
                 <i class="fas fa-download"></i>
                 @T("Admin.Common.Export")
             </button>
             <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                 <span class="caret"></span>
                 <span class="sr-only">&nbsp;</span>
-            </button>
-            <ul class="dropdown-menu" role="menu">
+            </button>*@
+            @*<ul class="dropdown-menu" role="menu">
                 <li class="dropdown-item">
                     <a asp-action="ExportXml">
                         <i class="far fa-file-code"></i>
@@ -43,12 +43,12 @@
                         @T("Admin.Common.ExportToExcel")
                     </a>
                 </li>
-            </ul>
+            </ul>*@
         </div>
-        <button type="button" name="importexcel" class="btn bg-olive" data-toggle="modal" data-target="#importexcel-window">
+        @*<button type="button" name="importexcel" class="btn bg-olive" data-toggle="modal" data-target="#importexcel-window">
             <i class="fas fa-upload"></i>
             @T("Admin.Common.Import")
-        </button>
+        </button>*@
         @await Component.InvokeAsync("AdminWidget", new { widgetZone = AdminWidgetZones.CategoryListButtons })
         <button type="button" id="delete-selected" class="btn btn-danger">
             <i class="far fa-trash-alt"></i>
